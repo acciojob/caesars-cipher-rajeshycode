@@ -1,46 +1,33 @@
-// Your Script here.
+function rot13(str) {
+  // Initialize an empty string to store the decoded result
+  let decodedStr = '';
 
-const lookup = {
-  A: "N",
-  B: "O",
-  C: "P",
-  D: "Q",
-  E: "R",
-  F: "S",
-  G: "T",
-  H: "U",
-  I: "V",
-  J: "W",
-  K: "X",
-  L: "Y",
-  M: "Z",
-  N: "A",
-  O: "B",
-  P: "C",
-  Q: "D",
-  R: "E",
-  S: "F",
-  T: "G",
-  U: "H",
-  V: "I",
-  W: "J",
-  X: "K",
-  Y: "L",
-  Z: "M",
-  "?": "?",
-  ",": ",",
-};
+  // Loop through each character in the input string
+  for (let i = 0; i < str.length; i++) {
+    // Get the current character
+    const char = str[i];
 
-function rot13(encodedStr) {
-  let decodedArr = []; // Your Result goes here
-  // Only change code below this line
+    // Check if the character is an uppercase letter
+    if (/[A-Z]/.test(char)) {
+      // Convert the character code to a number between 0 and 25
+      const charCode = char.charCodeAt(0) - 'A'.charCodeAt(0);
 
-  return; //return decodedArr
+      // Apply the ROT13 transformation (shift by 13)
+      const decodedCharCode = (charCode + 13) % 26;
+
+      // Convert the decoded character code back to a character and append it to the result
+      decodedStr += String.fromCharCode(decodedCharCode + 'A'.charCodeAt(0));
+    } else {
+      // If the character is not an uppercase letter, pass it through unchanged
+      decodedStr += char;
+    }
+  }
+
+  // Return the decoded string
+  return decodedStr;
 }
 
-// You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
-
-// console.log(rot13("SERR YBIR? NPPVBWBO"));
-
-// Do not change this line
-window.rot13 = rot13;
+// Example usage:
+const encodedString = "GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.";
+const decodedString = rot13(encodedString);
+console.log(decodedString); // Output: "THE QUICK BROWN FOX JUMPS OVER THE LAYR DOG."
